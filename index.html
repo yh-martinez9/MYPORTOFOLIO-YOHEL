@@ -350,6 +350,21 @@ h2 {
 .contacto__fin { margin-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: 4rem; text-align: center; font-size: .85rem; opacity: .65; }
 
 /* ============================================================
+   VIDEO
+   ============================================================ */
+.video { padding-block: var(--espacio); background: var(--pizarra); }
+.video h2 { color: var(--lima); }
+.video__marco {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  aspect-ratio: 16 / 9;
+  border: 6px solid var(--hielo);
+  background: var(--negro);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .4);
+}
+.video__marco iframe { width: 100%; height: 100%; border: 0; display: block; }
+.video__pie { margin-top: .9rem; font-size: .9rem; color: #aab3bb; }
+
+/* ============================================================
    Visor de foto ampliada
    ============================================================ */
 .lightbox { border: 0; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; overflow: visible; color: #fff; }
@@ -417,6 +432,7 @@ h2 {
       <a href="#habilidades">Habilidades</a>
       <a href="#voluntariado">Voluntariado</a>
       <a href="#contacto">Contacto</a>
+      <a href="#video">Video</a>
     </nav>
   </header>
 
@@ -442,7 +458,7 @@ h2 {
           <span class="visor__datos visor__datos--arriba"><b>M</b> 1/250 &nbsp; f/2.8 &nbsp; ISO 200</span>
           <span class="visor__datos visor__datos--abajo"><b class="af-estado">AF</b> <span class="visor__cuadro">Cuadro 01</span></span>
         </div>
-        <figcaption>Autorretrato en el espejo, con su Canon EOS R10.</figcaption>
+        <figcaption>Autorretrato en el espejo, con mi Canon EOS R10.</figcaption>
       </figure>
     </section>
 
@@ -481,7 +497,7 @@ h2 {
           <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-05.jpg" data-pie=""><img src="images/foto-05.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
           <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-06.jpg" data-pie=""><img src="images/foto-06.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
         </ul>
-        <p class="galeria__tip">Toca o pasa el cursor sobre una foto para revelarla a color. Haz clic para verla grande.</p>
+        <p class="galeria__tip">Haz clic para verlas imágenes grande.</p>
 
         <dl class="ficha">
           <div><dt>Cámara</dt><dd>Canon EOS R10</dd></div>
@@ -531,7 +547,7 @@ h2 {
           </li>
           <li class="cuadro cuadro--siguiente">
             <h3>El siguiente cuadro</h3>
-            <p>Clasificar al Concurso Nacional de Oratoria, terminar la universidad y seguir aprendiendo en el camino.</p>
+            <p>Terminar la universidad y lo que el camino depare.</p>
             <span class="cuadro__n">6</span>
           </li>
         </ol>
@@ -578,15 +594,15 @@ h2 {
         <div class="skills">
           <figure class="skill">
             <img src="images/habilidad-excel.jpg" alt="Salón de computadoras con los logos de PowerPoint, Excel y Word en la pared" loading="lazy">
-            <figcaption><strong>Experto en Excel</strong>Certificación en Excel. Lo uso junto a mi mentalidad emprendedora.</figcaption>
+            <figcaption><strong>Excel Expert</strong>Certificación en Excel Expert. Lo uso junto a mi mentalidad emprendedora.</figcaption>
           </figure>
           <figure class="skill">
             <img src="images/habilidad-toeic.jpg" alt="Yohel con compañeros y medallas en un jardín" loading="lazy">
-            <figcaption><strong>TOEIC Listening and Reading</strong>Certificación de inglés. Converso con fluidez en inglés y español.</figcaption>
+            <figcaption><strong>TOEIC Listening and Reading</strong>Certificación de inglés. Converso con fluidez en inglés.</figcaption>
           </figure>
           <figure class="skill">
             <img src="images/habilidad-programacion.jpg" alt="Código en la pantalla de un editor" loading="lazy">
-            <figcaption><strong>Programación</strong>Conocimientos de Python y de herramientas digitales.</figcaption>
+            <figcaption><strong>Programación</strong>Conocimientos de Python, CSS, HTML y de otras herramientas digitales.</figcaption>
           </figure>
         </div>
 
@@ -595,8 +611,8 @@ h2 {
           <ul>
             <li>Español</li>
             <li>Inglés</li>
-            <li class="en-proceso">Portugués <small>en proceso</small></li>
-            <li class="en-proceso">Italiano <small>en proceso</small></li>
+            <li class="en-proceso">Portugués <small>(en proceso)</small></li>
+            <li class="en-proceso">Italiano <small>(en proceso)</small></li>
           </ul>
         </div>
       </div>
@@ -654,6 +670,22 @@ h2 {
         <blockquote class="valores__frase">
           Siempre trato de recordar que hay un momento para todo, incluso para no hacer nada.
         </blockquote>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="video" id="video" data-modo="Video">
+      <div class="contenedor">
+        <h2>Un poco de mí</h2>
+        <div class="video__marco">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/LZGiPOcxtDY"
+            title="Video de Yohel Martínez"
+            loading="lazy"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowfullscreen></iframe>
+        </div>
+        <p class="video__pie">Transmitiendo en vivo</p>
       </div>
     </section>
 

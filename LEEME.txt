@@ -1,0 +1,30 @@
+PORTAFOLIO · YOHEL MARTÍNEZ
+===========================
+
+Estructura
+  index.html        La página completa: contenido, diseño (CSS) y efectos (JS)
+  (el CSS y el JavaScript ya están dentro de index.html)
+  images/           Todas las fotos
+
+Para verlo: abre index.html en el navegador (necesita internet solo para las
+tipografías de Google Fonts: Abril Fatface, Syne y Caveat).
+
+IMPORTANTE · Cambia las fotos por las originales
+Las fotos de esta versión salieron de capturas de pantalla del Canva, por eso
+tienen poca resolución. Reemplaza cada archivo en images/ por la foto original,
+con el MISMO nombre (no hay que tocar el código):
+
+  yohel-hero.jpg                 Autorretrato del inicio (sin texto encima)
+  foto-camino.jpg                Camino entre árboles (galería y "Viajar")
+  habilidad-excel.jpg / habilidad-toeic.jpg / habilidad-programacion.jpg
+  academico-oratoria.jpg / academico-debate.jpg / academico-representante.jpg
+  voluntariado-fil-panama.jpg / voluntariado-techo.jpg
+  valor-liderazgo.jpg / valor-excelencia.jpg / valor-fotografia.jpg
+  contacto-ciudad.jpg            Horizonte de Panamá (sin texto encima)
+
+Galería: agrega sus mejores fotos como foto-01.jpg ... foto-06.jpg dentro de
+images/. Las que no existan se ocultan solas. Para más de 6, copia una línea
+<li class="galeria__item">... en index.html dentro de la galería.
+
+Pendiente
+  - LinkedIn: en index.html busca "CAMBIA el enlace" y pon el enlace real.

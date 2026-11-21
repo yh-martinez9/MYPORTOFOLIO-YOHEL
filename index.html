@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yohel Martínez · Portafolio</title>
+  <meta name="description" content="Portafolio de Yohel Martínez: líder estudiantil, fotógrafo y voluntario de La Chorrera, Panamá.">
+  <meta name="theme-color" content="#121417">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23121417'/%3E%3Ccircle cx='50' cy='52' r='22' fill='none' stroke='%23ecf8a3' stroke-width='7'/%3E%3Ccircle cx='50' cy='52' r='8' fill='%23ecf8a3'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Caveat:wght@500;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ============================================================
+   Portafolio · Yohel Martínez
+   Paleta tomada de su Canva: lima, azul medianoche, pizarra y
+   el amarillo de la pared de su autorretrato.
+   ============================================================ */
+
+:root {
+  --negro: #121417;
+  --pizarra: #2b3237;
+  --pizarra-clara: #4f5658;
+  --medianoche: #00093a;
+  --medianoche-2: #0a1250;
+  --lima: #ecf8a3;
+  --laton: #d6c23b;
+  --hielo: #e8ecf4;
+  --tinta: #0b1030;
+  --blanco: #ffffff;
+
+  --display: "Abril Fatface", "Bodoni 72", Georgia, serif;
+  --texto: "Syne", "Segoe UI", system-ui, sans-serif;
+  --mano: "Caveat", "Bradley Hand", cursive;
+
+  --ancho: 1120px;
+  --espacio: clamp(4rem, 9vw, 8rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  margin: 0;
+  font-family: var(--texto);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--hielo);
+  background: var(--negro);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+
+:focus-visible { outline: 3px solid var(--lima); outline-offset: 3px; }
+
+.contenedor { width: min(var(--ancho), 100% - 2.5rem); margin-inline: auto; }
+
+.saltar {
+  position: absolute; left: 1rem; top: -4rem; z-index: 100;
+  background: var(--lima); color: var(--negro); padding: .6rem 1rem; text-decoration: none;
+}
+.saltar:focus { top: 1rem; }
+
+h2 {
+  font-family: var(--display);
+  font-size: clamp(2.1rem, 4.6vw, 3.7rem);
+  line-height: 1.08;
+  letter-spacing: .005em;
+  max-width: 18ch;
+}
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+  position: absolute; inset: 0 0 auto 0; z-index: 20;
+  display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
+  padding: 1.25rem clamp(1.25rem, 4vw, 3rem);
+  font-size: .95rem;
+}
+.cabecera__marca { font-weight: 700; text-decoration: none; color: var(--lima); letter-spacing: .02em; }
+.cabecera nav { display: flex; flex-wrap: wrap; gap: .3rem 1.4rem; justify-content: flex-end; }
+.cabecera nav a { text-decoration: none; opacity: .8; padding: .15rem 0; border-bottom: 1px solid transparent; }
+.cabecera nav a:hover { opacity: 1; border-color: var(--lima); }
+
+/* ---------- Panel de cámara fijo ---------- */
+.panel-camara {
+  position: fixed; right: clamp(.75rem, 2vw, 1.5rem); bottom: clamp(.75rem, 2vw, 1.5rem); z-index: 50;
+  display: flex; align-items: center; gap: .9rem;
+  padding: .5rem .5rem .5rem 1.1rem;
+  background: rgba(18, 20, 23, .88);
+  backdrop-filter: blur(8px);
+  color: var(--hielo);
+  border: 1px solid rgba(236, 248, 163, .35);
+  border-radius: 999px;
+  font-size: .82rem; line-height: 1.2;
+}
+.panel-camara strong { color: var(--lima); font-weight: 700; }
+.panel-camara__cuenta { padding-right: .4rem; opacity: .85; }
+.obturador {
+  order: 3; width: 44px; height: 44px; padding: 0; cursor: pointer;
+  border-radius: 50%; border: 0; background: var(--lima);
+  display: grid; place-items: center;
+  transition: transform .12s ease;
+}
+.obturador:active { transform: scale(.88); }
+.obturador__aro { width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--negro); }
+.panel-camara__modo { order: 1; }
+.panel-camara__cuenta { order: 2; }
+
+.flash {
+  position: fixed; inset: 0; z-index: 90; background: #fff; opacity: 0; pointer-events: none;
+}
+.flash.disparo { animation: flash .45s ease-out; }
+@keyframes flash { 0% { opacity: .95; } 100% { opacity: 0; } }
+
+/* ============================================================
+   1. INICIO · visor
+   ============================================================ */
+.inicio {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: 6.5rem clamp(1.25rem, 4vw, 3rem) 4rem;
+  background:
+    radial-gradient(ellipse at 85% 30%, rgba(214, 194, 59, .12), transparent 55%),
+    var(--negro);
+}
+.inicio h1 {
+  font-family: var(--display);
+  font-size: clamp(3.6rem, 9.5vw, 8rem);
+  line-height: .92;
+  color: var(--lima);
+  letter-spacing: .005em;
+}
+.inicio__frase {
+  margin-top: 2rem; max-width: 30ch;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem); line-height: 1.5; font-weight: 500;
+}
+.inicio__nota { margin-top: 1.25rem; max-width: 36ch; color: #aab3bb; font-size: .98rem; }
+
+.visor { margin: 0; position: relative; }
+.visor__foto { position: relative; overflow: hidden; background: var(--pizarra); aspect-ratio: 460 / 368; }
+.visor__foto img { width: 100%; height: 100%; object-fit: cover; }
+.visor__flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+.visor figcaption { margin-top: .75rem; font-size: .88rem; color: #aab3bb; }
+
+.visor__hud { position: absolute; inset: 0 0 auto 0; aspect-ratio: 460 / 368; pointer-events: none; color: var(--lima); }
+.esq { position: absolute; width: 8%; max-width: 54px; aspect-ratio: 1; border: 0 solid var(--lima); }
+.esq--tl { left: 4%; top: 7%; border-left-width: 3px; border-top-width: 3px; }
+.esq--tr { right: 4%; top: 7%; border-right-width: 3px; border-top-width: 3px; }
+.esq--bl { left: 4%; bottom: 7%; border-left-width: 3px; border-bottom-width: 3px; }
+.esq--br { right: 4%; bottom: 7%; border-right-width: 3px; border-bottom-width: 3px; }
+
+.visor__datos {
+  position: absolute; left: 0; right: 0; text-align: center;
+  font-size: clamp(.68rem, 1.2vw, .85rem); font-weight: 700; letter-spacing: .08em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+}
+.visor__datos--arriba { top: 2.2%; }
+.visor__datos--abajo { bottom: 2.4%; }
+.visor__datos b { margin-right: .4em; }
+.af-estado { transition: color .2s; }
+
+/* Caja de autoenfoque: busca y se fija sobre su cara */
+.af {
+  position: absolute; left: 22%; top: 26%;
+  width: 24%; aspect-ratio: 1 / 1.1;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--lima);
+  opacity: 0;
+}
+.af i {
+  position: absolute; inset: 42% 42%; border-radius: 50%; background: var(--lima); opacity: .9;
+}
+
+.visor.listo .af, .sin-movimiento .af { opacity: 1; }
+.visor.enfocando .af { animation: enfocar 2.3s cubic-bezier(.5, 0, .3, 1) .6s both; }
+.visor.enfocando .visor__flash { animation: destello .6s ease-out 3.1s both; }
+@keyframes enfocar {
+  0%   { opacity: 0; left: 50%; top: 50%; width: 44%; border-color: #fff; }
+  15%  { opacity: 1; }
+  35%  { left: 62%; top: 42%; width: 30%; border-color: #fff; }
+  55%  { left: 38%; top: 58%; width: 24%; border-color: #fff; }
+  80%  { left: 22%; top: 26%; width: 27%; border-color: #fff; }
+  100% { opacity: 1; left: 22%; top: 26%; width: 24%; border-color: var(--lima); }
+}
+@keyframes destello { 0% { opacity: .75; } 100% { opacity: 0; } }
+
+/* ============================================================
+   2. MI MIRADA
+   ============================================================ */
+.mirada { padding-block: var(--espacio); background: var(--pizarra); }
+.mirada__intro {
+  display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(1.5rem, 5vw, 5rem); align-items: end;
+}
+.mirada h2 { color: var(--lima); max-width: 16ch; }
+.mirada__cuerpo { display: grid; gap: 1rem; max-width: 46ch; color: #d4dae0; }
+
+.galeria {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  display: flex; flex-wrap: wrap; gap: .75rem;
+}
+.galeria__item { flex: 1 1 200px; height: clamp(260px, 32vw, 380px); background: var(--negro); }
+.galeria__item--grande { flex: 2 1 380px; }
+.foto { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; overflow: hidden; }
+.foto img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.9) brightness(.72) contrast(1.08);
+  transition: filter .6s ease, transform .6s ease;
+}
+.foto:hover img, .foto:focus-visible img { filter: none; transform: scale(1.03); }
+@media (hover: none) { .foto img { filter: none; } }
+.galeria__tip { margin-top: .9rem; font-size: .88rem; color: #aab3bb; }
+
+.ficha {
+  margin: clamp(3rem, 6vw, 5rem) 0 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 2.5rem;
+  border-top: 2px solid var(--lima);
+}
+.ficha > div { padding: 1rem 0; border-bottom: 1px solid rgba(232, 236, 244, .18); }
+.ficha dt { font-size: .85rem; color: var(--laton); font-weight: 700; }
+.ficha dd { margin: .15rem 0 0; }
+
+/* ============================================================
+   3. ROLLO
+   ============================================================ */
+.rollo { padding-block: var(--espacio); background: var(--negro); overflow: hidden; }
+.rollo h2 { color: var(--lima); max-width: 20ch; }
+.rollo__intro { margin-top: .75rem; color: #aab3bb; font-size: .95rem; }
+
+.rollo__ventana {
+  margin-top: 2.5rem;
+  overflow-x: auto; scroll-snap-type: x proximity;
+  padding-inline: max(1.25rem, calc((100vw - var(--ancho)) / 2));
+  scroll-padding-inline: max(1.25rem, calc((100vw - var(--ancho)) / 2));
+  cursor: grab;
+  scrollbar-width: thin; scrollbar-color: var(--laton) var(--pizarra);
+}
+.rollo__ventana.arrastrando { cursor: grabbing; scroll-snap-type: none; }
+.rollo__tira {
+  position: relative; display: flex; width: max-content;
+  padding: 44px 0;
+  background: #07080a;
+}
+.rollo__tira::before, .rollo__tira::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='14'%3E%3Crect x='6' y='1' width='20' height='12' rx='3' fill='%23e8ecf4' fill-opacity='.85'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+}
+.rollo__tira::before { top: 15px; }
+.rollo__tira::after { bottom: 15px; }
+
+.cuadro {
+  position: relative; flex: 0 0 auto;
+  width: min(78vw, 330px); min-height: 280px;
+  margin-right: 14px; padding: 1.5rem 1.4rem 3rem;
+  background: var(--pizarra);
+  border-top: 3px solid var(--laton);
+  scroll-snap-align: start;
+}
+.cuadro h3 { font-family: var(--display); font-size: 1.9rem; line-height: 1.1; color: var(--lima); }
+.cuadro p { margin-top: .85rem; font-size: .98rem; color: #d4dae0; }
+.cuadro__n { position: absolute; left: 1.4rem; bottom: .9rem; font-weight: 700; font-size: .85rem; color: var(--laton); }
+.cuadro--siguiente { background: transparent; border: 2px dashed rgba(236, 248, 163, .5); border-top-width: 2px; }
+
+/* ============================================================
+   4. TRAYECTORIA
+   ============================================================ */
+.trayectoria { padding-block: var(--espacio); background: var(--medianoche); }
+.trayectoria h2 { color: var(--lima); }
+.trayectoria__intro { margin-top: 1.25rem; max-width: 52ch; color: #c9d0ee; }
+
+.logros { margin-top: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid rgba(236, 248, 163, .35); }
+.logro {
+  display: grid; grid-template-columns: minmax(150px, 280px) minmax(0, 1fr);
+  gap: clamp(1.25rem, 4vw, 3rem); align-items: center;
+  padding-block: 1.75rem; border-bottom: 1px solid rgba(236, 248, 163, .35);
+}
+.logro img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 6px solid var(--hielo); }
+.logro h3 { font-family: var(--display); font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.15; color: var(--blanco); }
+.logro p { margin-top: .6rem; max-width: 52ch; color: #c9d0ee; }
+
+/* ============================================================
+   5. HABILIDADES
+   ============================================================ */
+.habilidades { padding-block: var(--espacio); background: var(--hielo); color: var(--tinta); }
+.habilidades h2 { color: var(--medianoche); }
+.skills { margin-top: clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; align-items: start; }
+.skill { margin: 0; }
+.skill:nth-child(2) { margin-top: 2.5rem; }
+.skill img { width: 100%; aspect-ratio: 4 / 4.3; object-fit: cover; }
+.skill figcaption { padding-top: .9rem; font-size: .96rem; }
+.skill strong { display: block; font-family: var(--display); font-weight: 400; font-size: 1.35rem; line-height: 1.2; color: var(--medianoche); margin-bottom: .25rem; }
+
+.idiomas { margin-top: clamp(3rem, 6vw, 5rem); display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem 2.5rem; padding-top: 1.5rem; border-top: 2px solid var(--medianoche); }
+.idiomas h3 { font-family: var(--display); font-size: 1.6rem; color: var(--medianoche); }
+.idiomas ul { display: flex; flex-wrap: wrap; gap: .6rem 1.8rem; font-weight: 600; }
+.idiomas small { font-weight: 500; color: #4a5170; margin-left: .25rem; font-size: .82rem; }
+.idiomas .en-proceso { opacity: .8; }
+
+/* ============================================================
+   6. VOLUNTARIADO
+   ============================================================ */
+.voluntariado { padding-block: var(--espacio); background: var(--blanco); color: var(--tinta); }
+.voluntariado h2 { color: var(--medianoche); max-width: 20ch; }
+.voluntariado__intro { margin-top: 1.1rem; font-size: 1.15rem; font-weight: 500; }
+.voluntariado__par { margin-top: clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); }
+.vol { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; align-items: end; }
+.vol img { width: 100%; aspect-ratio: 5 / 6; object-fit: cover; }
+.vol figcaption { font-size: .96rem; padding-bottom: .25rem; }
+.vol strong { display: block; color: var(--medianoche); font-family: var(--display); font-weight: 400; font-size: 1.3rem; line-height: 1.2; margin-bottom: .35rem; }
+
+/* ============================================================
+   7. VALORES · polaroids con su letra
+   ============================================================ */
+.valores { padding-block: var(--espacio); background: #1b1e22; }
+.valores h2 { color: var(--lima); }
+.polaroids { margin-top: clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2.2rem); }
+.polaroid { background: #f7f6f1; padding: .7rem .7rem .4rem; box-shadow: 0 14px 30px rgba(0, 0, 0, .45); }
+.polaroid:nth-child(1) { transform: rotate(-2.2deg); }
+.polaroid:nth-child(2) { transform: rotate(1.6deg) translateY(1.2rem); }
+.polaroid:nth-child(3) { transform: rotate(-1.2deg); }
+.polaroid:nth-child(4) { transform: rotate(2.4deg) translateY(1rem); }
+.polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.polaroid span { display: block; text-align: center; font-family: var(--mano); font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.5; color: var(--medianoche); }
+.valores__frase { margin: clamp(3.5rem, 7vw, 6rem) 0 0; max-width: 26ch; font-family: var(--display); font-size: clamp(1.7rem, 3.6vw, 2.8rem); line-height: 1.2; color: var(--blanco); }
+
+/* ============================================================
+   8. CONTACTO
+   ============================================================ */
+.contacto { background: var(--medianoche); }
+.contacto__foto { position: relative; }
+.contacto__foto img { width: 100%; height: clamp(260px, 38vw, 440px); object-fit: cover; object-position: center 40%; }
+.contacto__foto h2 {
+  position: absolute; top: clamp(1.25rem, 4vw, 3rem); right: clamp(1.25rem, 5vw, 4rem);
+  max-width: 12ch; text-align: right; color: var(--tinta);
+}
+.contacto__datos { background: linear-gradient(100deg, #3f9bb1 0%, var(--medianoche-2) 45%, var(--medianoche) 100%); padding-block: clamp(2.5rem, 6vw, 4.5rem) 2rem; }
+.contacto__rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.contacto__etiqueta { display: block; font-size: .85rem; font-weight: 700; color: var(--lima); margin-bottom: .35rem; }
+.contacto__rejilla a, .contacto__rejilla p { font-size: 1.05rem; overflow-wrap: anywhere; }
+.contacto__rejilla a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.contacto__rejilla a:hover { color: var(--lima); }
+.contacto__fin { margin-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: 4rem; text-align: center; font-size: .85rem; opacity: .65; }
+
+/* ============================================================
+   Visor de foto ampliada
+   ============================================================ */
+.lightbox { border: 0; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; overflow: visible; color: #fff; }
+.lightbox::backdrop { background: rgba(8, 9, 11, .92); }
+.lightbox img { max-width: 94vw; max-height: 80vh; margin-inline: auto; object-fit: contain; }
+.lightbox p { text-align: center; margin-top: .75rem; font-family: var(--mano); font-size: 1.6rem; }
+.lightbox__cerrar {
+  position: absolute; top: -2.8rem; right: 0; cursor: pointer;
+  background: var(--lima); color: var(--negro); border: 0; padding: .45rem 1rem; font: 700 .9rem var(--texto);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 900px) {
+  .cabecera { position: absolute; }
+  .cabecera nav { display: none; }
+  .inicio { grid-template-columns: 1fr; padding-top: 5.5rem; min-height: 0; }
+  .inicio__nota { max-width: 44ch; }
+  .mirada__intro { grid-template-columns: 1fr; align-items: start; }
+  .logro { grid-template-columns: 1fr; }
+  .logro img { max-width: 420px; }
+  .skills { grid-template-columns: 1fr; }
+  .skill:nth-child(2) { margin-top: 0; }
+  .skill img { aspect-ratio: 16 / 10; }
+  .voluntariado__par { grid-template-columns: 1fr; }
+  .polaroids { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1.25rem; }
+  .contacto__rejilla { grid-template-columns: 1fr; gap: 1.5rem; }
+  .panel-camara__modo { display: none; }
+}
+@media (max-width: 520px) {
+  .galeria__item { flex-basis: 45%; height: 220px; }
+  .galeria__item--grande { flex-basis: 100%; }
+  .vol { grid-template-columns: 1fr; }
+  .vol img { aspect-ratio: 4 / 3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .visor.enfocando .af, .visor.enfocando .visor__flash { animation: none; }
+  .foto img { transition: none; }
+}
+
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- Flash del obturador y panel de cámara -->
+  <div class="flash" id="flash" aria-hidden="true"></div>
+  <div class="panel-camara" id="panelCamara">
+    <span class="panel-camara__modo" aria-live="polite">Modo: <strong id="modoActual">Retrato</strong></span>
+    <button class="obturador" id="obturador" type="button" aria-label="Tomar una foto de la página">
+      <span class="obturador__aro"></span>
+    </button>
+    <span class="panel-camara__cuenta"><strong id="cuentaDisparos">0</strong> disparos</span>
+  </div>
+
+  <header class="cabecera">
+    <a class="cabecera__marca" href="#inicio">Yohel Martínez</a>
+    <nav aria-label="Secciones">
+      <a href="#mirada">Mi mirada</a>
+      <a href="#rollo">Mi historia</a>
+      <a href="#trayectoria">Trayectoria</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#voluntariado">Voluntariado</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="contenido">
+
+    <!-- 1. INICIO · visor de cámara -->
+    <section class="inicio" id="inicio" data-modo="Retrato">
+      <div class="inicio__texto">
+        <h1>Hola,<br>soy Yohel.</h1>
+        <p class="inicio__frase">Un líder no es el que te dice qué hacer, sino al que le preguntas cómo lo haría.</p>
+        <p class="inicio__nota">Estudiante, orador, voluntario y fotógrafo en La Chorrera, Panamá.</p>
+      </div>
+
+      <figure class="visor" id="visor">
+        <div class="visor__foto">
+          <img src="images/yohel-hero.jpg" alt="Yohel tomándose una foto frente a un espejo con su cámara Canon, en un pasillo con paredes amarillas" width="1380" height="1104">
+          <div class="visor__flash" aria-hidden="true"></div>
+        </div>
+        <div class="visor__hud" aria-hidden="true">
+          <span class="esq esq--tl"></span><span class="esq esq--tr"></span>
+          <span class="esq esq--bl"></span><span class="esq esq--br"></span>
+          <span class="af"><i></i></span>
+          <span class="visor__datos visor__datos--arriba"><b>M</b> 1/250 &nbsp; f/2.8 &nbsp; ISO 200</span>
+          <span class="visor__datos visor__datos--abajo"><b class="af-estado">AF</b> <span class="visor__cuadro">Cuadro 01</span></span>
+        </div>
+        <figcaption>Autorretrato en el espejo, con su Canon EOS R10.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 2. MI MIRADA · fotografía -->
+    <section class="mirada" id="mirada" data-modo="Mi mirada">
+      <div class="contenedor">
+        <div class="mirada__intro">
+          <h2>Siempre tomo la foto, pero casi nunca salgo en ella.</h2>
+          <div class="mirada__cuerpo">
+            <p>Creo que las fotos guardan la belleza de un momento para poder vivirlo otra vez. Esa es mi razón de fotografiar.</p>
+            <p>Para mí, la fotografía es mi manera de ver lo que otros no ven, incluso en lo cotidiano. Con mi cámara y mi lente capturo cada lugar al que voy: el arte de contemplar.</p>
+          </div>
+        </div>
+
+        <ul class="galeria" id="galeria" aria-label="Galería de fotografías">
+          <li class="galeria__item galeria__item--grande">
+            <button class="foto" type="button" data-src="images/yohel-hero.jpg" data-pie="Autorretrato en el espejo">
+              <img src="images/yohel-hero.jpg" alt="Autorretrato de Yohel en un espejo con su cámara" loading="lazy">
+            </button>
+          </li>
+          <li class="galeria__item">
+            <button class="foto" type="button" data-src="images/foto-camino.jpg" data-pie="Un camino entre árboles">
+              <img src="images/foto-camino.jpg" alt="Un camino de tierra entre árboles con luz cálida" loading="lazy">
+            </button>
+          </li>
+          <li class="galeria__item">
+            <button class="foto" type="button" data-src="images/valor-fotografia.jpg" data-pie="La cámara, siempre en la mano">
+              <img src="images/valor-fotografia.jpg" alt="Una mano sosteniendo una cámara Canon frente a una reja" loading="lazy">
+            </button>
+          </li>
+          <!-- Agrega aquí más fotos suyas: foto-01.jpg, foto-02.jpg ... (las que no existan se ocultan solas) -->
+          <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-01.jpg" data-pie=""><img src="images/foto-01.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
+          <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-02.jpg" data-pie=""><img src="images/foto-02.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
+          <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-03.jpg" data-pie=""><img src="images/foto-03.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
+          <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-04.jpg" data-pie=""><img src="images/foto-04.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
+          <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-05.jpg" data-pie=""><img src="images/foto-05.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
+          <li class="galeria__item"><button class="foto" type="button" data-src="images/foto-06.jpg" data-pie=""><img src="images/foto-06.jpg" alt="Fotografía de Yohel" loading="lazy"></button></li>
+        </ul>
+        <p class="galeria__tip">Toca o pasa el cursor sobre una foto para revelarla a color. Haz clic para verla grande.</p>
+
+        <dl class="ficha">
+          <div><dt>Cámara</dt><dd>Canon EOS R10</dd></div>
+          <div><dt>Sujeto favorito</dt><dd>Cualquier cosa que muestre una emoción</dd></div>
+          <div><dt>Música</dt><dd>Indie pop, casi siempre en inglés</dd></div>
+          <div><dt>Lecturas</dt><dd>Realismo mágico: Cien años de soledad, El amor en los tiempos del cólera</dd></div>
+          <div><dt>Colecciona</dt><dd>Billetes de un dólar y, de paso, analiza placas de autos</dd></div>
+          <div><dt>Para comer</dt><dd>Sushi, ropa vieja, patacones y hojaldres</dd></div>
+          <div><dt>Destino soñado</dt><dd>El extremo sureste de Costa Rica</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 3. MI HISTORIA · rollo de película -->
+    <section class="rollo" id="rollo" data-modo="Rollo">
+      <div class="contenedor">
+        <h2>Mi historia, cuadro por cuadro</h2>
+        <p class="rollo__intro">Desliza el rollo hacia los lados.</p>
+      </div>
+
+      <div class="rollo__ventana" id="rolloVentana" tabindex="0" role="region" aria-label="Línea de tiempo en forma de rollo de película">
+        <ol class="rollo__tira">
+          <li class="cuadro">
+            <h3>Hace 7 años</h3>
+            <p>Llegué a La Chorrera. Una escuela nueva me obligó a cambiar y a adaptarme a un lugar que todavía no conocía.</p>
+            <span class="cuadro__n">1</span>
+          </li>
+          <li class="cuadro">
+            <h3>La pandemia</h3>
+            <p>Todo cambió. Crecí, hice nuevos amigos y empezó la secundaria. Ahí descubrí que me encanta salir y llegar a donde pueda.</p>
+            <span class="cuadro__n">2</span>
+          </li>
+          <li class="cuadro">
+            <h3>2025</h3>
+            <p>Debatí en los Campeonatos de Debate Work-School y participé en la Feria Internacional del Libro con la Alianza Francesa Panamá.</p>
+            <span class="cuadro__n">3</span>
+          </li>
+          <li class="cuadro">
+            <h3>Marzo 2026</h3>
+            <p>Construí viviendas dignas para familias en situación de pobreza junto a TECHO Panamá.</p>
+            <span class="cuadro__n">4</span>
+          </li>
+          <li class="cuadro">
+            <h3>Abril 2026</h3>
+            <p>Gané por voto popular la representación estudiantil de mi escuela.</p>
+            <span class="cuadro__n">5</span>
+          </li>
+          <li class="cuadro cuadro--siguiente">
+            <h3>El siguiente cuadro</h3>
+            <p>Clasificar al Concurso Nacional de Oratoria, terminar la universidad y seguir aprendiendo en el camino.</p>
+            <span class="cuadro__n">6</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 4. TRAYECTORIA ACADÉMICA -->
+    <section class="trayectoria" id="trayectoria" data-modo="Trayectoria">
+      <div class="contenedor">
+        <h2>Trayectoria académica</h2>
+        <p class="trayectoria__intro">Concursos, debates y proyectos de ciencia me enseñaron que las ideas están en todas partes: solo hay que volverlas reales.</p>
+
+        <ul class="logros">
+          <li class="logro">
+            <img src="images/academico-oratoria.jpg" alt="Yohel presentando frente a un grupo de estudiantes durante un concurso" loading="lazy">
+            <div>
+              <h3>Concursos de oratoria y discurso</h3>
+              <p>Presentaciones sobre temas muy distintos, en inglés y en español. Mi próxima meta es clasificar al Concurso Nacional de Oratoria.</p>
+            </div>
+          </li>
+          <li class="logro">
+            <img src="images/academico-debate.jpg" alt="Yohel junto a otro estudiante después de un debate" loading="lazy">
+            <div>
+              <h3>Torneos de debate</h3>
+              <p>Campeonatos de Debate Work-School 2025, donde practiqué el pensamiento crítico y la toma de decisiones.</p>
+            </div>
+          </li>
+          <li class="logro">
+            <img src="images/academico-representante.jpg" alt="Yohel junto a una compañera frente a un busto en el patio de su escuela" loading="lazy">
+            <div>
+              <h3>Representante estudiantil</h3>
+              <p>En abril de 2026 gané por elección popular los votos para representar a mi escuela. Es la prueba de que otros confían en mí.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. HABILIDADES -->
+    <section class="habilidades" id="habilidades" data-modo="Habilidades">
+      <div class="contenedor">
+        <h2>Habilidades técnicas</h2>
+
+        <div class="skills">
+          <figure class="skill">
+            <img src="images/habilidad-excel.jpg" alt="Salón de computadoras con los logos de PowerPoint, Excel y Word en la pared" loading="lazy">
+            <figcaption><strong>Experto en Excel</strong>Certificación en Excel. Lo uso junto a mi mentalidad emprendedora.</figcaption>
+          </figure>
+          <figure class="skill">
+            <img src="images/habilidad-toeic.jpg" alt="Yohel con compañeros y medallas en un jardín" loading="lazy">
+            <figcaption><strong>TOEIC Listening and Reading</strong>Certificación de inglés. Converso con fluidez en inglés y español.</figcaption>
+          </figure>
+          <figure class="skill">
+            <img src="images/habilidad-programacion.jpg" alt="Código en la pantalla de un editor" loading="lazy">
+            <figcaption><strong>Programación</strong>Conocimientos de Python y de herramientas digitales.</figcaption>
+          </figure>
+        </div>
+
+        <div class="idiomas">
+          <h3>Idiomas</h3>
+          <ul>
+            <li>Español</li>
+            <li>Inglés</li>
+            <li class="en-proceso">Portugués <small>en proceso</small></li>
+            <li class="en-proceso">Italiano <small>en proceso</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. VOLUNTARIADO -->
+    <section class="voluntariado" id="voluntariado" data-modo="Voluntariado">
+      <div class="contenedor">
+        <h2>Impacto social y voluntariado</h2>
+        <p class="voluntariado__intro">Ayudar por una buena causa nunca es energía perdida.</p>
+
+        <div class="voluntariado__par">
+          <figure class="vol">
+            <img src="images/voluntariado-fil-panama.jpg" alt="Yohel sentado frente a las letras gigantes de FIL Panamá" loading="lazy">
+            <figcaption>
+              <strong>Feria Internacional del Libro 2025</strong>
+              Junto a la Alianza Francesa Panamá.
+            </figcaption>
+          </figure>
+          <figure class="vol">
+            <img src="images/voluntariado-techo.jpg" alt="Voluntarios de TECHO Panamá sonriendo con camisetas y gorras" loading="lazy">
+            <figcaption>
+              <strong>TECHO Panamá, marzo 2026</strong>
+              Construyendo viviendas dignas para familias en situación de pobreza.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. VALORES Y PASATIEMPOS -->
+    <section class="valores" id="valores" data-modo="Valores">
+      <div class="contenedor">
+        <h2>Mis valores y pasatiempos</h2>
+
+        <ul class="polaroids">
+          <li class="polaroid">
+            <img src="images/valor-liderazgo.jpg" alt="Yohel con uniforme escolar durante un desfile" loading="lazy">
+            <span>Liderazgo</span>
+          </li>
+          <li class="polaroid">
+            <img src="images/valor-excelencia.jpg" alt="Yohel recibiendo un reconocimiento" loading="lazy">
+            <span>Excelencia</span>
+          </li>
+          <li class="polaroid">
+            <img src="images/foto-camino.jpg" alt="Camino de tierra entre árboles" loading="lazy">
+            <span>Viajar</span>
+          </li>
+          <li class="polaroid">
+            <img src="images/valor-fotografia.jpg" alt="Una cámara Canon sostenida en la mano" loading="lazy">
+            <span>Fotografía</span>
+          </li>
+        </ul>
+
+        <blockquote class="valores__frase">
+          Siempre trato de recordar que hay un momento para todo, incluso para no hacer nada.
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- 8. CONTACTO -->
+    <section class="contacto" id="contacto" data-modo="Contacto">
+      <div class="contacto__foto">
+        <img src="images/contacto-ciudad.jpg" alt="Horizonte de rascacielos de la Ciudad de Panamá junto a la bahía" loading="lazy">
+        <h2>Información de contacto</h2>
+      </div>
+      <div class="contacto__datos">
+        <div class="contenedor contacto__rejilla">
+          <div>
+            <span class="contacto__etiqueta">LinkedIn</span>
+            <!-- CAMBIA el enlace por el perfil real de Yohel -->
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener">Yohel Martínez</a>
+          </div>
+          <div>
+            <span class="contacto__etiqueta">Correo</span>
+            <a href="mailto:martinezyohel49@gmail.com">martinezyohel49@gmail.com</a>
+          </div>
+          <div>
+            <span class="contacto__etiqueta">Ubicación</span>
+            <p>Panamá, Panamá Oeste,<br>La Chorrera</p>
+          </div>
+        </div>
+        <p class="contacto__fin">Fin del rollo. Cuadro 36 de 36.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Visor de fotos ampliadas -->
+  <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada">
+    <button class="lightbox__cerrar" type="button" id="lightboxCerrar" aria-label="Cerrar">Cerrar</button>
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxPie"></p>
+  </dialog>
+
+  <script>
+/* Portafolio · Yohel Martínez */
+(function () {
+  'use strict';
+
+  var sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (sinMovimiento) document.documentElement.classList.add('sin-movimiento');
+
+  /* ---------- 1. Visor: el autoenfoque busca y se fija en su cara ---------- */
+  var visor = document.getElementById('visor');
+  if (visor) {
+    var estado = visor.querySelector('.af-estado');
+    if (sinMovimiento) {
+      visor.classList.add('listo');
+      if (estado) estado.textContent = 'AF ●';
+    } else {
+      window.requestAnimationFrame(function () { visor.classList.add('enfocando'); });
+      // El AF tarda ~2.9 s en fijarse (0.6 s de espera + 2.3 s de animación)
+      window.setTimeout(function () { if (estado) estado.textContent = 'AF ●'; }, 2900);
+    }
+  }
+
+  /* ---------- 2. Panel de cámara: modo según la sección + obturador ---------- */
+  var modo = document.getElementById('modoActual');
+  var secciones = document.querySelectorAll('main section[data-modo]');
+  if (modo && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) modo.textContent = e.target.getAttribute('data-modo');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    secciones.forEach(function (s) { io.observe(s); });
+  }
+
+  var flash = document.getElementById('flash');
+  var obturador = document.getElementById('obturador');
+  var cuenta = document.getElementById('cuentaDisparos');
+  var disparos = 0;
+  if (obturador && flash) {
+    obturador.addEventListener('click', function () {
+      disparos += 1;
+      cuenta.textContent = disparos;
+      flash.classList.remove('disparo');
+      void flash.offsetWidth; // reinicia la animación
+      flash.classList.add('disparo');
+    });
+  }
+
+  /* ---------- 3. Galería: oculta las fotos que aún no existen + visor ampliado ---------- */
+  var galeria = document.getElementById('galeria');
+  if (galeria) {
+    galeria.querySelectorAll('.galeria__item').forEach(function (item) {
+      var img = item.querySelector('img');
+      if (!img) return;
+      var quitar = function () { item.remove(); };
+      img.addEventListener('error', quitar, { once: true });
+      if (img.complete && img.naturalWidth === 0) quitar();
+    });
+
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightboxImg');
+    var lbPie = document.getElementById('lightboxPie');
+    var lbCerrar = document.getElementById('lightboxCerrar');
+
+    if (lb && typeof lb.showModal === 'function') {
+      galeria.addEventListener('click', function (ev) {
+        var boton = ev.target.closest('.foto');
+        if (!boton) return;
+        var img = boton.querySelector('img');
+        lbImg.src = boton.getAttribute('data-src');
+        lbImg.alt = img ? img.alt : '';
+        lbPie.textContent = boton.getAttribute('data-pie') || '';
+        lb.showModal();
+      });
+      lbCerrar.addEventListener('click', function () { lb.close(); });
+      lb.addEventListener('click', function (ev) { if (ev.target === lb) lb.close(); });
+    }
+  }
+
+  /* ---------- 4. Rollo de película: se arrastra con el mouse ---------- */
+  var ventana = document.getElementById('rolloVentana');
+  if (ventana) {
+    var inicioX = 0, inicioScroll = 0, activo = false;
+    ventana.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      activo = true; inicioX = e.clientX; inicioScroll = ventana.scrollLeft;
+      ventana.classList.add('arrastrando');
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!activo) return;
+      ventana.scrollLeft = inicioScroll - (e.clientX - inicioX);
+    });
+    window.addEventListener('pointerup', function () {
+      activo = false; ventana.classList.remove('arrastrando');
+    });
+    ventana.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') ventana.scrollBy({ left: 340, behavior: 'smooth' });
+      if (e.key === 'ArrowLeft') ventana.scrollBy({ left: -340, behavior: 'smooth' });
+    });
+  }
+})();
+
+  </script>
+</body>
+</html>
